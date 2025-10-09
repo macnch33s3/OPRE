@@ -1,0 +1,12 @@
+NAME: CAP_KS_5
+TYPE: CAP_KNAPSACK
+COMMENT: Pack 5 items into a knapsack with max_cap=15 (Tiemessen)
+NUM_ITEMS: 5
+KNAPSACK_CAPACITY: 15
+ITEMS_ID_WEIGHT_VALUE
+1 12.0 4.0
+2 2.0 2.0
+3 1.0 2.0
+4 1.0 1.0
+5 4.0 10.0
+EOF

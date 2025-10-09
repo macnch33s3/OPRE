@@ -1,0 +1,10 @@
+NAME: CAP_KS_3
+TYPE: CAP_KNAPSACK
+COMMENT: Pack 3 items into a knapsack with max_cap=15 (Leuthold)
+NUM_ITEMS: 3
+KNAPSACK_CAPACITY: 15
+ITEMS_ID_WEIGHT_VALUE
+1 9.0 10.0
+2 7.0 6.0
+3 7.0 6.0
+EOF

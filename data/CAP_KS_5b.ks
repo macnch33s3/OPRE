@@ -1,0 +1,12 @@
+NAME: CAP_KS_5b
+TYPE: CAP_KNAPSACK
+COMMENT: Pack 5 items into a knapsack with max_cap=15 (Leuthold)
+NUM_ITEMS: 5
+KNAPSACK_CAPACITY: 15
+ITEMS_ID_WEIGHT_VALUE
+1 15.0 5.0
+2 9.0 3.1
+3 6.1 0.95
+4 6.1 0.95
+5 8.0 0.5
+EOF

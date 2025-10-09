@@ -1,0 +1,15 @@
+NAME: test4
+TYPE: TSP
+COMMENT: 8 locations on regular octagon (Leuthold)
+DIMENSION: 8
+EDGE_WEIGHT_TYPE: EUC_2D
+NODE_COORD_SECTION
+1 5 0
+2 10 0
+3 15 5
+4 15 10
+5 10 15
+6 5 15
+7 0 10
+8 0 5
+EOF

@@ -1,0 +1,26 @@
+NAME: BIN_PACK_1D_C10_O20
+TYPE: 1D-BIN PACKING INSTANCE
+COMMENT: Place 20 objects in 1-dimensional bins with capacity 10
+CONTAINER_CAP: 10
+OBJ_ID_DIM
+1 1.1
+2 4.3
+3 3.9
+4 1.6
+5 2.7
+6 2.5
+7 3.4
+8 4.0
+9 0.9
+10 0.6
+11 4.3
+12 2.4
+13 3.9
+14 0.5
+15 2.5
+16 3.7
+17 1.5
+18 4.8
+19 4.6
+20 0.6
+EOF

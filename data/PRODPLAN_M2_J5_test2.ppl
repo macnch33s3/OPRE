@@ -1,0 +1,12 @@
+NAME: PRODPLAN_M2_J5_test2
+TYPE: PRODPLAN_PROBLEM
+COMMENT: Mean instance, assign 5 jobs with a given duration to be processed on 2 (identic) machines (Leuthold)
+NUM_MACHINES: 2
+NUM_JOBS: 5
+JOBS_ID_DURATION
+1 9
+2 8
+3 7
+4 6
+5 5
+EOF

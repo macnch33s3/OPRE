@@ -1,0 +1,13 @@
+NAME: SUBSETSUM_C20_I6
+TYPE: SUBSET_SUM
+COMMENT: Mean instance. Generate a subset from 5 items to approximate max_cap=20 as good as possible
+NUM_ITEMS: 6
+LIMIT_CAPACITY: 20
+ITEMS_ID_WEIGHT
+1 5
+2 5
+3 5
+4 9
+5 9
+6 5
+EOF

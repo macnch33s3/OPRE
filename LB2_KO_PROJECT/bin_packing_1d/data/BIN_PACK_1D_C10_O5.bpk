@@ -1,0 +1,11 @@
+NAME: BIN_PACK_1D_C10_O5
+TYPE: 1D-BIN PACKING INSTANCE
+COMMENT: Place 5 objects in 1-dimensional bins with capacity 10
+CONTAINER_CAP: 10
+OBJ_ID_DIM
+1 1.1
+2 4.3
+3 3.9
+4 1.6
+5 2.7
+EOF

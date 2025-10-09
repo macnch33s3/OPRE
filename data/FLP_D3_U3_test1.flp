@@ -1,0 +1,15 @@
+NAME: FLP_D3_U3_test1
+TYPE: Facility Location Problem
+COMMENT: FLP Instance with 3 Depots and 3 Units (Leuthold). All Depots needed.
+NUM_DEPOTS: 3
+NUM_UNITS: 3
+CRITICAL_DISTANCE: 12.5
+DEPOT_COST
+1 14000
+2 28000
+3 37000
+DEPOT_UNIT_DISTANCE_MATRIX
+1 1;100;100
+2 100;1;100
+3 100;100;1
+EOF

@@ -1,0 +1,20 @@
+NAME: BIN_PACK_2D_C10x10_O28
+TYPE: 2D-BIN PACKING INSTANCE
+COMMENT: Place objects in 2D 10x10 bins (Source: https://lamarr-institute.org/de/blog/bin-packing/)
+CONTAINER_XDIM: 10
+CONTAINER_YDIM: 10
+OBJTYPE_ID_XDIM_YDIM_NUM
+1 1 1 8
+2 2 1 1
+3 2 2 7
+4 3 2 2
+5 3 3 3
+6 4 1 2
+7 4 2 2
+8 4 4 5
+9 5 2 1
+10 5 5 1
+11 6 5 3
+12 9 1 2
+13 9 3 1
+EOF
