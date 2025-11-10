@@ -28,21 +28,24 @@ def calculate_makespan(assignment: List[List[int]], job_durations: List[int]) ->
 
 def get_machine_loads(assignment: List[List[int]], job_durations: List[int]) -> List[int]: # Last für jede Maschine berechnen
                                                                                             # returns list: last für jede Maschine
+    machine_loads = []
 
-    return [sum(job_durations[job] for job in machine_jobs) 
-            for machine_jobs in assignment]
+    for machine_jobs in assignment:
+        load = 0
+        for job in machine_jobs:
+            load += job_durations[job]
+        machine_loads.append(load)
+
+    return machine_loads
+
+# Ausführlichere Variante von:
+    # return [sum(job_durations[job] for job in machine_jobs) 
+    #         for machine_jobs in assignment]
 
 
-def print_solution(assignment: List[List[int]], job_durations: List[int], 
+def print_solution(assignment: List[List[int]], job_durations: List[int], # Lösung formatiert ausgeben
                    method_name: str = "") -> None:
-    """
-    Gibt die Lösung formatiert aus.
-    
-    Args:
-        assignment: Job-Zuweisung zu Maschinen
-        job_durations: Job-Dauern
-        method_name: Name der verwendeten Methode
-    """
+
     makespan = calculate_makespan(assignment, job_durations)
     loads = get_machine_loads(assignment, job_durations)
     
@@ -53,9 +56,22 @@ def print_solution(assignment: List[List[int]], job_durations: List[int],
     print(f"Makespan: {makespan}")
     print(f"\nMaschinen-Lasten: {loads}")
     print(f"\nZuweisung:")
-    for i, machine_jobs in enumerate(assignment):
-        job_info = [f"J{j}({job_durations[j]})" for j in machine_jobs]
-        print(f"  Maschine {i+1}: {', '.join(job_info)} → Last: {loads[i]}")
+
+    i = 0
+    for machine_jobs in assignment:
+        job_info = ""
+
+        for j in machine_jobs:
+            job_info += f"J{j}({job_durations[j]}), "
+        # das letzte Komma und Leerzeichen entfernen
+        job_info = job_info[:-2] if job_info else ""
+        print(f"  Maschine {i + 1}: {job_info} -> Last: {loads[i]}")
+        i += 1
+
+    # for i, machine_jobs in enumerate(assignment):
+        # job_info = [f"J{j}({job_durations[j]})" for j in machine_jobs]
+        # print(f"  Maschine {i+1}: {', '.join(job_info)} -> Last: {loads[i]}")
+
     print(f"{'='*70}\n")
 
 
@@ -63,19 +79,10 @@ def print_solution(assignment: List[List[int]], job_durations: List[int],
 # KONSTRUKTIONSHEURISTIKEN
 # ============================================================================
 
-def greedy_lpt(num_machines: int, job_durations: List[int]) -> List[List[int]]:
-    """
-    Longest Processing Time (LPT) Heuristik.
-    Sortiert Jobs absteigend nach Dauer und weist jeden Job der am wenigsten 
-    belasteten Maschine zu.
-    
-    Args:
-        num_machines: Anzahl verfügbarer Maschinen
-        job_durations: Liste der Job-Dauern
-    
-    Returns:
-        Job-Zuweisung als Liste von Listen
-    """
+def greedy_lpt(num_machines: int, job_durations: List[int]) -> List[List[int]]: # greedy longest processing time
+                                                                                # Sortiert Jobs absteigend nach Dauer und weist jeden Job der am wenigsten belasteten Maschine zu.
+                                                                                # returns job-zuweisung als list[list[int]]
+
     # Jobs nach Dauer sortieren (absteigend)
     jobs_sorted = sorted(range(len(job_durations)), 
                         key=lambda j: job_durations[j], reverse=True)
@@ -93,21 +100,13 @@ def greedy_lpt(num_machines: int, job_durations: List[int]) -> List[List[int]]:
     return assignment
 
 
-def greedy_spt(num_machines: int, job_durations: List[int]) -> List[List[int]]:
-    """
-    Shortest Processing Time (SPT) Heuristik.
-    Sortiert Jobs aufsteigend nach Dauer.
-    
-    Args:
-        num_machines: Anzahl verfügbarer Maschinen
-        job_durations: Liste der Job-Dauern
-    
-    Returns:
-        Job-Zuweisung als Liste von Listen
-    """
-    # Jobs nach Dauer sortieren (aufsteigend)
+def greedy_spt(num_machines: int, job_durations: List[int]) -> List[List[int]]: # greedy shortest processing time / gleich wie greedy_lpt nur ohne reverse
+                                                                                # Sortiert Jobs aufsteigend nach Dauer.
+                                                                                # returns job-zuweisung als list[list[int]]
+
+    # Jobs nach Dauer sortieren (aufsteigend) / gleich wei bei greedy_lpt
     jobs_sorted = sorted(range(len(job_durations)), 
-                        key=lambda j: job_durations[j])
+                        key=lambda j: job_durations[j]) # hier ohne reverse
     
     # Initialisierung
     assignment = [[] for _ in range(num_machines)]
@@ -122,23 +121,15 @@ def greedy_spt(num_machines: int, job_durations: List[int]) -> List[List[int]]:
     return assignment
 
 
-def balanced_greedy(num_machines: int, job_durations: List[int]) -> List[List[int]]:
-    """
-    Balancierte Greedy-Heuristik.
-    Weist Jobs sequentiell der am wenigsten belasteten Maschine zu (ohne Sortierung).
-    
-    Args:
-        num_machines: Anzahl verfügbarer Maschinen
-        job_durations: Liste der Job-Dauern
-    
-    Returns:
-        Job-Zuweisung als Liste von Listen
-    """
+def balanced_greedy(num_machines: int, job_durations: List[int]) -> List[List[int]]:    # Balanziert greedy-heuristiken
+                                                                                        # weist jobs sequentiell der am wenigsten belasteten Maschine zu (ohne Sortierung)
+                                                                                        # returns job-zuweisung als list[list[int]]
+    # Initialisierung
     assignment = [[] for _ in range(num_machines)]
     machine_loads = [0] * num_machines
     
     # Jobs in ursprünglicher Reihenfolge zuweisen
-    for job in range(len(job_durations)):
+    for job in range(len(job_durations)): # jobs werden hier nicht sortiert, es wird nur durch die range iiteriert
         min_machine = min(range(num_machines), key=lambda m: machine_loads[m])
         assignment[min_machine].append(job)
         machine_loads[min_machine] += job_durations[job]
@@ -150,8 +141,8 @@ def balanced_greedy(num_machines: int, job_durations: List[int]) -> List[List[in
 # VERBESSERUNGSHEURISTIKEN
 # ============================================================================
 
-def local_search_swap(assignment: List[List[int]], job_durations: List[int], 
-                      max_iterations: int = 1000) -> List[List[int]]:
+def local_search_swap(assignment: List[List[int]], job_durations: List[int],    # Local-Search durch Swap
+                      max_iterations: int = 1000) -> List[List[int]]:           # returns Verbesserte job-zuweisung als List[list[int]]
     """
     Lokale Suche mit Swap-Nachbarschaft.
     Tauscht Jobs zwischen zwei Maschinen, wenn dies den Makespan verbessert.
@@ -169,7 +160,7 @@ def local_search_swap(assignment: List[List[int]], job_durations: List[int],
     improved = True
     iterations = 0
     
-    while improved and iterations < max_iterations:
+    while improved and iterations < max_iterations: 
         improved = False
         iterations += 1
         
@@ -179,7 +170,7 @@ def local_search_swap(assignment: List[List[int]], job_durations: List[int],
                 # Probiere alle Job-Paare zwischen m1 und m2
                 for i, job1 in enumerate(current_assignment[m1]):
                     for j, job2 in enumerate(current_assignment[m2]):
-                        # Erstelle Nachbar durch Tausch
+                        # Erstelle Nachbar durch swap
                         neighbor = copy.deepcopy(current_assignment)
                         neighbor[m1][i], neighbor[m2][j] = neighbor[m2][j], neighbor[m1][i]
                         
@@ -200,8 +191,8 @@ def local_search_swap(assignment: List[List[int]], job_durations: List[int],
     return current_assignment
 
 
-def local_search_move(assignment: List[List[int]], job_durations: List[int], 
-                      max_iterations: int = 1000) -> List[List[int]]:
+def local_search_move(assignment: List[List[int]], job_durations: List[int],    # Local-Search durch Move
+                      max_iterations: int = 1000) -> List[List[int]]:           # returns Verbesserte Job-Zuweisung als List[list[int]]
     """
     Lokale Suche mit Move-Nachbarschaft.
     Verschiebt einzelne Jobs zu einer anderen Maschine, wenn dies den Makespan verbessert.
@@ -251,9 +242,10 @@ def local_search_move(assignment: List[List[int]], job_durations: List[int],
     return current_assignment
 
 
-def simulated_annealing(assignment: List[List[int]], job_durations: List[int],
-                       initial_temp: float = 100.0, cooling_rate: float = 0.95,
-                       max_iterations: int = 1000) -> List[List[int]]:
+def simulated_annealing(assignment: List[List[int]], job_durations: List[int],  # simulated annealing - mit einer
+                       initial_temp: float = 100.0, cooling_rate: float = 0.95, # abnehmender Wahrscheinlichkeit werden in der LS auch schlechtere Lösungen akzeptiert.
+                       max_iterations: int = 1000) -> List[List[int]]:          # returns beste gefunden job-zuweisung als List[list[inst]]
+    
     """
     Simulated Annealing Metaheuristik.
     Akzeptiert auch schlechtere Lösungen mit einer temperaturabhängigen Wahrscheinlichkeit.
@@ -300,12 +292,13 @@ def simulated_annealing(assignment: List[List[int]], job_durations: List[int],
                     neighbor[m1][i1], neighbor[m2][i2] = neighbor[m2][i2], neighbor[m1][i1]
         
         neighbor_makespan = calculate_makespan(neighbor, job_durations)
-        delta = neighbor_makespan - current_makespan
+        delta = neighbor_makespan - current_makespan    # misst wieviel schlechter oder besser die neue Lösung (neighbour)
+                                                        # im Vergleich zur aktuellen Lösung (current) ist
         
         # Akzeptanzkriterium
-        if delta < 0 or np.random.random() < np.exp(-delta / temp):
-            current = neighbor
-            current_makespan = neighbor_makespan
+        if delta < 0 or np.random.random() < np.exp(-delta / temp): # delta < 0, dann ist neue Lösung besser -> wird akzeptiert
+            current = neighbor                                      # delta > 0, dann ist neue Lösung schlechter -> kann akzeptiert werden
+            current_makespan = neighbor_makespan                    # mit einer Wahrscheinlichkeit
             
             if current_makespan < best_makespan:
                 best = copy.deepcopy(current)
@@ -321,17 +314,9 @@ def simulated_annealing(assignment: List[List[int]], job_durations: List[int],
 # HAUPTPROGRAMM
 # ============================================================================
 
-def solve_instance(filename: str, use_all_methods: bool = True) -> Dict[str, int]:
-    """
-    Löst eine Problem-Instanz mit verschiedenen Methoden.
-    
-    Args:
-        filename: Pfad zur PPL-Datei
-        use_all_methods: Wenn True, werden alle Methoden angewendet
-    
-    Returns:
-        Dictionary mit Ergebnissen aller Methoden
-    """
+def solve_instance(filename: str, use_all_methods: bool = True) -> Dict[str, int]:  # Löst eine Problem-Instanz mit verschiedenen Methoden
+                                                                                    # returns Dictonary mit Ergebnissen aller Methoden
+
     print(f"\n{'#'*70}")
     print(f"# Problem-Instanz: {filename}")
     print(f"{'#'*70}\n")
@@ -342,6 +327,7 @@ def solve_instance(filename: str, use_all_methods: bool = True) -> Dict[str, int
     total_duration = sum(job_durations)
     lower_bound = int(np.ceil(total_duration / num_machines))
     
+    # Parameter in Console printen
     print(f"Anzahl Maschinen: {num_machines}")
     print(f"Anzahl Jobs: {num_jobs}")
     print(f"Job-Dauern: {job_durations}")
@@ -412,7 +398,7 @@ def solve_instance(filename: str, use_all_methods: bool = True) -> Dict[str, int
         print(f"  {method:25s}: {makespan:.5f}  (Gap: {gap:5.1f}%)")
         # method:25s ->  string mit fester Breite 25
         # makespan:.5f -> Float mit fester Breite 5 Nachkommastellen
-        # gap:5.1f ->    Float mit Nachkommastelle (Gesamtbreite 5, Nachkomastelle 1, f besagt float) 
+        # gap:5.1f ->    Float mit Nachkommastelle (Gesamtbreite 5, Nachkomastelle 1, f besagt float)
     
     best_method = min(results.items(), key=lambda x: x[1])
     print(f"\nBeste Methode: {best_method[0]} mit Makespan {best_method[1]}")
@@ -430,16 +416,16 @@ if __name__ == "__main__":
     
     # Mehrere Instanzen lösen
     # instances = [
-    #     "data/PRODPLAN_M2_J5.ppl",
-    #     "data/PRODPLAN_M2_J8.ppl",
+    #    "data/PRODPLAN_M2_J5.ppl",
+    #    "data/PRODPLAN_M2_J8.ppl",
     #     "data/PRODPLAN_M2_J21.ppl",
     #     "data/PRODPLAN_M4_J32.ppl",
     #     "data/PRODPLAN_M2_J4_test.ppl",
     #     "data/PRODPLAN_M2_J4_test2.ppl"
-    # ]
-    # 
-    # for instance in instances:
-    #     try:
-    #         solve_instance(instance, use_all_methods=True)
-    #     except Exception as e:
-    #         print(f"Fehler bei {instance}: {e}")
+    #]
+    #
+    #for instance in instances:
+    #    try:
+    #        solve_instance(instance, use_all_methods=True)
+    #    except Exception as e:
+    #        print(f"Fehler bei {instance}: {e}")

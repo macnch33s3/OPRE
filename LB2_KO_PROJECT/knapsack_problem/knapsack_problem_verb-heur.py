@@ -1,4 +1,4 @@
-# import knapsack_reader import read_knapsack_probelm
+import knapsack_reader
 
 # def n():
     # list = []
