@@ -405,7 +405,6 @@ def solve_instance(filename: str, use_all_methods: bool = True) -> Dict[str, int
     
     return results
 
-
 # ============================================================================
 # BEISPIELAUFRUF
 # ============================================================================
