@@ -1,4 +1,4 @@
-import numpy as np                      # 
+import numpy as np
 from ppl_reader import read_ppl_file    # code von vorhergehendem file importieren
 from typing import List, Tuple, Dict    
 import copy                             # library die deepcopy und shallowcopy beeinhalted
