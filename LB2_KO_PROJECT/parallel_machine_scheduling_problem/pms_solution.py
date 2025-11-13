@@ -343,20 +343,20 @@ def solve_instance(filename: str, use_all_methods: bool = True) -> Dict[str, int
     lpt_solution = greedy_lpt(num_machines, job_durations)
     lpt_makespan = calculate_makespan(lpt_solution, job_durations)
     print_solution(lpt_solution, job_durations, "LPT")
-    results['LPT'] = lpt_makespan
+    results["LPT"] = lpt_makespan
     
     if use_all_methods:
         # SPT Heuristik
         spt_solution = greedy_spt(num_machines, job_durations)
         spt_makespan = calculate_makespan(spt_solution, job_durations)
         print_solution(spt_solution, job_durations, "SPT (Shortest Processing Time)")
-        results['SPT'] = spt_makespan
+        results["SPT"] = spt_makespan
         
         # Balancierte Greedy
         balanced_solution = balanced_greedy(num_machines, job_durations)
         balanced_makespan = calculate_makespan(balanced_solution, job_durations)
         print_solution(balanced_solution, job_durations, "Balanced Greedy")
-        results['Balanced'] = balanced_makespan
+        results["Balanced"] = balanced_makespan
     
     # Lokale Suche (Move) auf bester Ausgangslösung
     print("\n" + "="*70)
@@ -365,7 +365,7 @@ def solve_instance(filename: str, use_all_methods: bool = True) -> Dict[str, int
     ls_move_solution = local_search_move(lpt_solution, job_durations)
     ls_move_makespan = calculate_makespan(ls_move_solution, job_durations)
     print_solution(ls_move_solution, job_durations, "LPT + Local Search (Move)")
-    results['LPT + LS Move'] = ls_move_makespan
+    results["LPT + LS Move"] = ls_move_makespan
     
     # Lokale Suche (Swap)
     print("\n" + "="*70)
@@ -374,7 +374,7 @@ def solve_instance(filename: str, use_all_methods: bool = True) -> Dict[str, int
     ls_swap_solution = local_search_swap(lpt_solution, job_durations)
     ls_swap_makespan = calculate_makespan(ls_swap_solution, job_durations)
     print_solution(ls_swap_solution, job_durations, "LPT + Local Search (Swap)")
-    results['LPT + LS Swap'] = ls_swap_makespan
+    results["LPT + LS Swap"] = ls_swap_makespan
     
     # Simulated Annealing
     print("\n" + "="*70)
@@ -394,7 +394,7 @@ def solve_instance(filename: str, use_all_methods: bool = True) -> Dict[str, int
     print(f"\nTheoretische Untergrenze: {lower_bound}")
     print("\nErgebnisse aller Methoden:")
     for method, makespan in sorted(results.items(), key=lambda x: x[1]):
-        gap = ((makespan - lower_bound) / lower_bound * 100) if lower_bound > 0 else 0
+        gap = ((makespan - lower_bound) / lower_bound * 100) if lower_bound > 0 else 0 # Prozentsatz berechnen
         print(f"  {method:25s}: {makespan:.5f}  (Gap: {gap:5.1f}%)")
         # method:25s ->  string mit fester Breite 25
         # makespan:.5f -> Float mit fester Breite 5 Nachkommastellen
