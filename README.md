@@ -10,3 +10,22 @@ Das Projekt beinhaltet Unterverzeichnisse für alle Lernblöcke:
 - **LB2_KO_PROJECT:** Hier finden Sie Skripte und Jupyter Notebooks für die Unterstützung in der Fallstudie zur Kombinatorischen Optimierung sowie alle Beispielskripte und Heuristiken im Zusammenhang mit dem Knapsack-Problem.
 
 - **LB3_GT_SAMPLE:** Hier finden Sie Skripte und Jupyter Notebooks für die Übungen des dritten Lernblocks zur Graphentheorie.
+-----------------------------------------------------------------------------------------------------------------------------
+**Voraussetzungen**
+- Git installiert
+- Python (empfohlen: 3.13.1)
+
+**Repo klonen**
+1. Repository klonen:
+```bash
+git clone https://github.com/macnch33s3/OPRE.git
+```
+2. In das Projektverzeichnis wechseln:
+```bash
+cd OPRE
+```
+3. Falls `pms_solution` in einem Unterordner liegt:
+```bash
+cd pfad/zu/pms_solution  # ersetze durch den tatsächlichen Pfad
+```
+
