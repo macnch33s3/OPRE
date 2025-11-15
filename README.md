@@ -45,22 +45,18 @@ uv sync
 
 **Daten**
 -----
-- Falls Daten benötigt werden (CSV, Modelle o.ä.), beschreibe:
-  - wo die Daten heruntergeladen werden können (Links),
-  - in welchem Verzeichnis sie abgelegt werden müssen, z. B. `data/` (gitignore prüfen),
-  - Beispiel: Lege `data/input.csv` in `data/` ab.
+- Daten die benötigt werden sind: 
+  - data aus `LB2_KO_PROJECT/parallel_machine_scheduling_problem/data`
+  - installierte module numpy und ppl_reader initialisiert
 
-Projektstruktur (Beispiel)
---------------------------
-Passe diesen Abschnitt an die tatsächliche Struktur an:
-```
-pms_solution/         — Paket / Quellcode
-  ├─ __init__.py
-  ├─ main.py           — Einstiegspunkt
-  ├─ config.py         — Konfiguration
-  └─ utils/            — Hilfsfunktionen
-notebooks/            — Jupyter‑Notebooks (falls vorhanden)
-data/                 — (nicht versionierte) Eingabedaten
-requirements.txt
-README.md
-```
+**Fehlerbehebung (Troubleshooting)**
+-------------------------------
+- Fehlende Abhängigkeit: `pip install <paket>`
+- ImportError: Überprüfen, ob die virtuelle Umgebung aktiviert ist und ob der PYTHONPATH korrekt ist.
+- Datenproblem: Dateipfade kontrollieren, Dateinamen und Zugriffsrechte.
+- Bei Problemen: Ausgabe und Traceback kopieren und ein Issue im Repository öffnen.
+
+**Lizenz & Kontakt**
+----------------
+- Lizenz: MIT
+- Bei Fragen: @macnch33s3 oder ein Issue im Repo öffnen.
