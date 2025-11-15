@@ -421,10 +421,10 @@ if __name__ == "__main__":
     #     "data/PRODPLAN_M4_J32.ppl",
     #     "data/PRODPLAN_M2_J4_test.ppl",
     #     "data/PRODPLAN_M2_J4_test2.ppl"
-    #]
+    # ]
     #
-    #for instance in instances:
+    # for instance in instances:
     #    try:
-    #        solve_instance(instance, use_all_methods=True)
+        #    solve_instance(instance, use_all_methods=True)
     #    except Exception as e:
-    #        print(f"Fehler bei {instance}: {e}")
+        #    print(f"Fehler bei {instance}: {e}")
